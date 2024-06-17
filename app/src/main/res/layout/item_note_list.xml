@@ -8,14 +8,27 @@
     android:paddingRight="16dp"
     android:gravity="center">
 
-    <TextView
-        android:id="@+id/note_text"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="1">
+    <TextView
+        android:id="@+id/note_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:minHeight="64dp"
         android:gravity="center_vertical"
         tools:text="some text for testing"/>
+
+    <TextView
+        android:id="@+id/end_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:textColor="?android:attr/textColorSecondary"
+        tools:text="End time: 2024-06-16 14:30"/>
+    </LinearLayout>
 
     <CheckBox
         android:id="@+id/completed"

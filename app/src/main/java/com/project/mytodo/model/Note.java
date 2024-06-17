@@ -24,6 +24,9 @@ public class Note implements Parcelable {
     @ColumnInfo(name = "done")
     public boolean done;
 
+    @ColumnInfo(name = "end_time")
+    public long endTime;
+
     public Note(){
 
     }
@@ -33,12 +36,12 @@ public class Note implements Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Note note = (Note) o;
-        return uid == note.uid && timestamp == note.timestamp && done == note.done && Objects.equals(text, note.text);
+        return uid == note.uid && timestamp == note.timestamp && done == note.done && endTime == note.endTime && Objects.equals(text, note.text);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uid, text, timestamp, done);
+        return Objects.hash(uid, text, timestamp, done, endTime);
     }
 
     protected Note(Parcel in){
@@ -46,6 +49,7 @@ public class Note implements Parcelable {
         text = in.readString();
         timestamp = in.readLong();
         done = in.readByte() != 0;
+        endTime = in.readLong();
     }
 
     @Override
@@ -59,6 +63,7 @@ public class Note implements Parcelable {
         dest.writeString(text);
         dest.writeLong(timestamp);
         dest.writeByte((byte) (done ? 1 : 0));
+        dest.writeLong(endTime);
 
     }
 

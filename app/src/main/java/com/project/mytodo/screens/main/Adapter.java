@@ -18,7 +18,10 @@ import com.project.mytodo.R;
 import com.project.mytodo.model.Note;
 import com.project.mytodo.screens.details.NoteDetailsActivity;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.NoteViewHolder> {
 
@@ -99,6 +102,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.NoteViewHolder> {
     static class NoteViewHolder extends RecyclerView.ViewHolder{
 
         TextView noteText;
+        TextView endTimeText;
         CheckBox completed;
         View delete;
 
@@ -110,6 +114,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.NoteViewHolder> {
             super(itemView);
 
             noteText = itemView.findViewById(R.id.note_text);
+            endTimeText = itemView.findViewById(R.id.end_time);
             completed = itemView.findViewById(R.id.completed);
             delete = itemView.findViewById(R.id.delete);
 
@@ -150,6 +155,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.NoteViewHolder> {
             completed.setChecked(note.done);
             silentUpdate = false;
 
+            if (note.endTime > 0) {
+                endTimeText.setText(formatDateTime(note.endTime));
+            } else {
+                endTimeText.setText("");
+            }
+
         }
 
         private void updateStrokeOut() {
@@ -158,6 +169,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.NoteViewHolder> {
             } else {
                 noteText.setPaintFlags(noteText.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
             }
+        }
+
+        private String formatDateTime(long tiemInMillis) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd HH:mm", Locale.getDefault());
+            return sdf.format(new Date(tiemInMillis));
         }
     }
 }
